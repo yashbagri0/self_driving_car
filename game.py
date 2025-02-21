@@ -38,7 +38,7 @@ if not is_ai_playing:
     car2 = Car((460, 679), cars[1], (25, 40), velocity=10, turn_speed=5)
     car3 = Car((460, 711), cars[2], (25, 40), velocity=10, turn_speed=5)    
 elif player_count == 2:
-    car1 = Car((460, 679), cars[0], (25, 40), velocity=10, turn_speed=10)
+    car1 = Car((460, 679), cars[4], (25, 40), velocity=10, turn_speed=10)
     car2 = Car((460, 711), cars[1], (25, 40), velocity=10, turn_speed=5)
 elif player_count == 3:
     car1 = Car((460, 679), cars[0], (25, 40), velocity=10, turn_speed=10)
@@ -59,10 +59,8 @@ while running:
     if ai_animation:
         track.draw(screen, animation=ai_animation)
     elif car2_animation:
-        track.draw(screen)
         track.draw(screen, animation=car2_animation, text_to_render='CAR 1 WON')
     elif car3_animation:
-        track.draw(screen)
         track.draw(screen, animation=car3_animation, text_to_render='CAR 2 WON')
     else:
         track.draw(screen)
