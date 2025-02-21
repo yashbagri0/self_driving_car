@@ -45,6 +45,8 @@ class Track:
             # Center text
             text_x = (surface.get_width() - text.get_width()) // 2
             surface.blit(text, (text_x, self.text_y))
+        else:
+            self.text_y = surface.get_height()
 
         # debugging
         # for reward_ptn in self.reward_checkpoints:

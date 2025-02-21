@@ -183,7 +183,7 @@ def train_agent(agent, car, track, ep_start=0, episodes=100000, early_stop=10000
         save_checkpoint(agent, episode, intersected, f'ckp{dir_num}/checkpoint_latest.pth')
         print(f"Episode: {episode+1}, Total Reward: {total_reward:.2f}, Steps: {steps}, Epsilon: {agent.epsilon:.4f}, with {finished_biggest_episodes_rewards}")
 
-render = False
+render = True
 
 WIDTH, HEIGHT = 1092, 774
 if render:
@@ -210,21 +210,29 @@ car = Car((460, 697), cars[0], (25, 40), velocity=10, turn_speed=10)
 state_size = 51 # 6 car states + 25 raycasts + 20 poe (2+2)*5
 action_size = 5  # [up, left, right, up+left, up+right]
 running = True
+# pos = []
 finished = []
+# print([i for i in range (-180, 180+1, 15)])
 agent = DQNAgent(state_size, action_size, target_update=1000, min_epsilon=0.001)
 if not render:
-    episode, intersected = load_checkpoint(agent, 'ckpt.pth')            
-    train_agent(agent, car, track, episodes=15000, render=render, dir_num=14, ep_start=233)
+    episode, intersected = load_checkpoint(agent, 'ckp14/checkpoint_233.pth')            
+    train_agent(agent, car, track, episodes=15000, render=render, dir_num=14, ep_start=224)
 else:
     agent = DQNAgent(state_size, action_size, target_update=1000, epsilon=0, min_epsilon=0)
-    episode, _ = load_checkpoint(agent, 'ckpt.pth')
+    episode, _ = load_checkpoint(agent, 'ckp14/checkpoint_233.pth')
+    # episode, _ = load_checkpoint(agent, 'ckp14/checkpoint_194.pth')
+    # episode, _ = load_checkpoint(agent, 'ckp14/checkpoint_122.pth')
+
+    # print(_)
 test = 0
 while render and running:
     clock.tick(60)
     track.draw(screen)
     state = agent.get_states(car, track)
-
+    # print(state)
     action = agent.act(state)
+    # old_pos = (car.car_x, car.car_y)
+    # track.intersect_reward_checkpoint(old_pos[0], old_pos[1], car.car_x, car.car_y)
         
     if render:
         keys = {pygame.K_UP: False, pygame.K_LEFT: False, pygame.K_RIGHT: False}
